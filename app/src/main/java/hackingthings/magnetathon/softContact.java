@@ -5,18 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class HomeScreen extends AppCompatActivity {
+public class softContact extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_soft_contact);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_soft_contact, menu);
         return true;
     }
     @Override
@@ -27,8 +26,8 @@ public class HomeScreen extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()){
-            case R.id.action_soft_contact:
-                Intent intent = new Intent(this,softContact.class);
+            case R.id.action_home:
+                Intent intent = new Intent(this,HomeScreen.class);
                 startActivity(intent);
                 return true;
             case R.id.action_faq:
