@@ -26,7 +26,8 @@
         android:id="@+id/textView5"
         android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="28dp"
+        android:textColor="@color/background_floating_material_dark" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,10 +42,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="How often will you send my coordinates if I send out a hard alert?"
         android:id="@+id/textView7"
         android:layout_below="@+id/textView6"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:textColor="@color/background_floating_material_dark" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Your coordinates will be sent out every minute from the time that you press the hard alert to the point in time where you cancel the alert through your pin."
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

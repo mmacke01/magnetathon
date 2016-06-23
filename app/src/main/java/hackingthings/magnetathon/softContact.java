@@ -1,10 +1,13 @@
 package hackingthings.magnetathon;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class softContact extends AppCompatActivity {
 
@@ -37,5 +40,10 @@ public class softContact extends AppCompatActivity {
             default:
                 return false;
         }
+    }
+    public void saveSoftContact(View view){
+        EditText mEdit;
+        mEdit   = (EditText)findViewById(R.id.messageText);
+        System.out.println(mEdit.getText().toString());
     }
 }
