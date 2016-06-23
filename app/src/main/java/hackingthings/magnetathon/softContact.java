@@ -41,6 +41,12 @@ public class softContact extends AppCompatActivity {
                 return false;
         }
     }
+
+    public void contactsClick(View view){
+        Intent intent = new Intent(this,ContactsList.class);
+        startActivity(intent);
+    }
+
     public void saveSoftContact(View view){
         EditText mEdit;
         mEdit   = (EditText)findViewById(R.id.messageText);

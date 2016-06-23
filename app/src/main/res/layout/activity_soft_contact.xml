@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hackingthings.magnetathon.softContact">
+    tools:context=".softContact">
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +58,8 @@
         android:text="Choose Contact"
         android:id="@+id/choosenContactButton"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/changeSoftContactHeader" />
+        android:layout_toEndOf="@+id/changeSoftContactHeader"
+        android:onClick="contactsClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,8 +93,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/saveButton"
+        android:text="Save Message"
+        android:id="@+id/saveMessageButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="saveSoftContact" />
