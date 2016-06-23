@@ -1,6 +1,7 @@
 package hackingthings.magnetathon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,9 +48,14 @@ public class softContact extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void saveSoftContact(View view){
+    public void saveSoftContactMessage(View view){
         EditText mEdit;
         mEdit   = (EditText)findViewById(R.id.messageText);
         System.out.println(mEdit.getText().toString());
+
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("SoftContactMessage", mEdit.getText().toString());
+        editor.commit();
     }
 }
