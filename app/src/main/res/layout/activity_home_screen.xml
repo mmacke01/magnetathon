@@ -13,7 +13,6 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/goButton"
         android:layout_alignParentStart="false"
-        tools:context="hackingthings.magnetathon.maps.MapsActivity"
         android:layout_alignParentEnd="false" />
 
     <Button
