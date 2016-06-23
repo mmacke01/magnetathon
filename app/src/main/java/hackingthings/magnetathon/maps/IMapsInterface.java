@@ -7,5 +7,5 @@ import java.sql.Time;
  */
 public interface IMapsInterface {
 
-    public Time SuggestedTime();
+    public Time suggestedTime();
 }

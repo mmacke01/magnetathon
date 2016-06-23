@@ -5,7 +5,7 @@ package hackingthings.magnetathon.alerts;
  */
 public interface IAlertsInterface {
 
-    public boolean SendSoftAlert();
+    public boolean sendSoftAlert();
 
-    public boolean SendHardAlert();
+    public boolean sendHardAlert();
 }
