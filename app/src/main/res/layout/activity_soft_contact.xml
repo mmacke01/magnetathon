@@ -97,6 +97,6 @@
         android:id="@+id/saveMessageButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="saveSoftContact" />
+        android:onClick="saveSoftContactMessage" />
 
 </RelativeLayout>
