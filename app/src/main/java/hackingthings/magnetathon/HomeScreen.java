@@ -87,7 +87,7 @@ public class HomeScreen extends AppCompatActivity implements OnMapReadyCallback,
             requestPermissions(CONTACTS_PERMS, REQUEST + 1);
         }
 
-        if (checkSelfPermission(android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(SMS_PERMS, REQUEST + 2);
         }

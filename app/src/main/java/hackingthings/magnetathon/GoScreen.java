@@ -164,7 +164,7 @@ public class GoScreen extends AppCompatActivity {
         LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        String coord = currentLocation.getLatitude() + ", " + currentLocation.getLongitude();
+        String coord = String.valueOf(currentLocation.getLatitude()) + ", " + String.valueOf(currentLocation.getLongitude());
 
         TextView t = (TextView) findViewById(R.id.alertMessage);
         t.setText("Emergency Mode has been entered.");
