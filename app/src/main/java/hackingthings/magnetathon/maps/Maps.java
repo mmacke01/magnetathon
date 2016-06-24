@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by jwichanski on 6/23/2016.
  */
-public class Maps implements IMapsInterface
+public class Maps
 {
     private GoogleMap mMap;
 
