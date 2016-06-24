@@ -40,6 +40,7 @@
 
         <activity android:name=".Contacts" />
         <activity android:name=".Pop"></activity>
+        <activity android:name=".GoScreen"></activity>
     </application>
 
 </manifest>
