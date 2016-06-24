@@ -75,7 +75,6 @@ public class HomeScreen extends AppCompatActivity
         }
     }
     public void goClick(View view){
-        Intent intent = new Intent(this,GoScreen.class);
-        startActivity(intent);
+        startActivity(new Intent(HomeScreen.this, Pop.class));
     }
 }
