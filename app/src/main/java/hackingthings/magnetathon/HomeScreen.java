@@ -190,6 +190,7 @@ public class HomeScreen extends AppCompatActivity implements OnMapReadyCallback,
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(camera, 13));
 
         this.googleMap.setOnMapClickListener(this);
+        this.googleMap.setMyLocationEnabled(true);
     }
 
     @Override
