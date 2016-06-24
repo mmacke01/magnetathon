@@ -3,6 +3,7 @@ package hackingthings.magnetathon;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,22 +70,49 @@ public class GoScreen extends AppCompatActivity {
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)||(keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
-
             counter++;
             if(counter == 3){
-                TextView t = (TextView) findViewById(R.id.timeRemainingText);
-                t.setText("Soft Contact will now be alerted");
-                Alerter alert = new Alerter(this);
-                alert.sendHardAlert();
+                softAlert();
             }
             else if(counter == 5){
-                TextView t = (TextView) findViewById(R.id.timeRemainingText);
-                t.setText("Emergency Mode has been entered.");
-                Button b = (Button) findViewById(R.id.homeButton);
-                b.setText("I am safe");
+                hardAlert();
+            }
+            else if(counter == 1){
+                reset();
             }
 
         }
         return true;
+    }
+    public void reset(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(counter<3){
+                    counter = 0;
+                }
+            }
+        }, 5000);
+    }
+    public void softAlert(){
+        final Alerter alert = new Alerter(this);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(counter<7){
+                    TextView t = (TextView) findViewById(R.id.timeRemainingText);
+                    t.setText("Soft Contact will now be alerted");
+                    alert.sendHardAlert("soft alert");
+                }
+            }
+        }, 5000);
+    }
+    public void hardAlert(){
+        final Alerter alert = new Alerter(this);
+        TextView t = (TextView) findViewById(R.id.timeRemainingText);
+        t.setText("Emergency Mode has been entered.");
+        alert.sendHardAlert("hard alert");
+        Button b = (Button) findViewById(R.id.homeButton);
+        b.setText("I am safe");
     }
 }

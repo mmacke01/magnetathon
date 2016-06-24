@@ -42,13 +42,13 @@ public class Alerter {
         }
     }
 
-    public boolean sendHardAlert() {
+    public boolean sendHardAlert(String mes) {
 
         String locationMessage = "coordinates will go here";
 
         try {
 
-            sms.sendTextMessage("2265808249", null, locationMessage, null, null);
+            sms.sendTextMessage("2265808249", null, mes, null, null);
             return true;
 
         } catch (Exception e) { //send failed

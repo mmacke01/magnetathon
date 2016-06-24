@@ -59,6 +59,7 @@
         android:id="@+id/choosenContactButton"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/changeSoftContactHeader"
+        android:textAllCaps="false"
         android:onClick="contactsClick" />
 
     <TextView
@@ -94,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save Message"
+        android:textAllCaps="false"
         android:id="@+id/saveMessageButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

@@ -23,5 +23,6 @@
         android:text="Save Contact"
         android:id="@+id/saveContactButton"
         android:layout_alignParentBottom="true"
+        android:textAllCaps="false"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
