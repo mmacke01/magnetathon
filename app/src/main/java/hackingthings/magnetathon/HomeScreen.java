@@ -41,6 +41,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 import hackingthings.magnetathon.maps.Maps;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +104,22 @@ public class HomeScreen extends AppCompatActivity implements OnMapReadyCallback,
 
         camera = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+        Data storedData = Data.getInstance();
+        try {
+            FileInputStream fis = openFileInput("AlertData");
+            StringBuilder builder = new StringBuilder();
+            int c;
+            while ((c = fis.read()) != -1) {
+                builder.append((char) c);
+            }
+            String[] data = builder.toString().split("\n");
+            storedData.setName(data[0]);
+            storedData.setNumber(data[1]);
+            storedData.setMessage(data[2]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

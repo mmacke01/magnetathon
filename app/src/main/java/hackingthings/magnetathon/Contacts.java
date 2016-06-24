@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,8 +142,17 @@ public class Contacts extends AppCompatActivity
                     editor.putString("SoftContactName", data.getName());
                     editor.commit();
 
-                    Data.getInstance().setName(data.getName());
-                    Data.getInstance().setNumber(data.getPhone());
+                    Data storedData = Data.getInstance();
+                    storedData.setName(data.getName());
+                    storedData.setNumber(data.getPhone());
+                    try {
+                        FileOutputStream fos = openFileOutput("AlertData", MODE_PRIVATE);
+                        String content = storedData.getName() + "\n" + storedData.getNumber() + "\n" + storedData.getMessage();
+                        fos.write(content.getBytes());
+                        fos.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     Intent intent = new Intent(Contacts.this, softContact.class);
                     startActivity(intent);

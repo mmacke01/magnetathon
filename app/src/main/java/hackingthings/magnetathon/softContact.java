@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.FileOutputStream;
+
 import hackingthings.magnetathon.alerts.Alerter;
 
 public class softContact extends AppCompatActivity {
@@ -75,6 +77,15 @@ public class softContact extends AppCompatActivity {
         editor.putString("SoftContactMessage", mEdit.getText().toString());
         editor.commit();
 
-        Data.getInstance().setMessage(mEdit.getText().toString());
+        Data storedData = Data.getInstance();
+        storedData.setMessage(mEdit.getText().toString());
+        try {
+            FileOutputStream fos = openFileOutput("AlertData", MODE_PRIVATE);
+            String content = storedData.getName() + "\n" + storedData.getNumber() + "\n" + storedData.getMessage();
+            fos.write(content.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
