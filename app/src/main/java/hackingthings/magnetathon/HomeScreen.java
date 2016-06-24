@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -23,8 +26,18 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 import hackingthings.magnetathon.maps.Maps;
@@ -32,7 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreen extends AppCompatActivity
+public class HomeScreen extends AppCompatActivity implements OnMapReadyCallback, DirectionCallback, GoogleMap.OnMapClickListener
 {
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -41,9 +54,19 @@ public class HomeScreen extends AppCompatActivity
     private static final String[] CONTACTS_PERMS = {
             Manifest.permission.READ_CONTACTS
     };
+    private static final String[] SMS_PERMS =
+    {
+            Manifest.permission.SEND_SMS,
+    };
     private static final int INITIAL_REQUEST=333;
     private static final int REQUEST =INITIAL_REQUEST+3;
+
     private GoogleMap googleMap;
+    private LocationManager locationManager;
+    private String serverKey = "AIzaSyBi7q5da5QF1vlNUsE5Hal9coT-WddVLz0";
+    private LatLng camera;
+    private LatLng origin;
+    private LatLng destination;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,28 +74,37 @@ public class HomeScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        try {
-            if (googleMap == null) {
-                googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
-
-                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                        checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                {
-                    requestPermissions(LOCATION_PERMS, REQUEST);
-                }
-
-                googleMap.setMyLocationEnabled(true);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        // Check if we have proper permissions, if not request them
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(LOCATION_PERMS, REQUEST);
         }
 
         if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(CONTACTS_PERMS, REQUEST + 1);
         }
+
+        if (checkSelfPermission(android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(SMS_PERMS, REQUEST + 2);
+        }
+
+        try {
+                ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        camera = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -112,5 +144,53 @@ public class HomeScreen extends AppCompatActivity
             Intent intent = new Intent(this,GoScreen.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDirectionSuccess(Direction direction, String rawBody)
+    {
+        if (direction.isOK()) {
+            googleMap.addMarker(new MarkerOptions().position(origin));
+            googleMap.addMarker(new MarkerOptions().position(destination));
+
+            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+            googleMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.RED));
+
+            // direction.getRouteList().get(0).getLegList().get(0)
+        }
+    }
+
+    @Override
+    public void onDirectionFailure(Throwable t)
+    {
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap)
+    {
+        this.googleMap = googleMap;
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(camera, 13));
+
+        this.googleMap.setOnMapClickListener(this);
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng)
+    {
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        // Clear all markers and directions
+        googleMap.clear();
+
+        String serverKey = "AIzaSyBi7q5da5QF1vlNUsE5Hal9coT-WddVLz0";
+        this.origin = new LatLng(latitude, longitude);
+        this.destination = new LatLng(latLng.latitude, latLng.longitude);
+        GoogleDirection.withServerKey(serverKey)
+                .from(this.origin)
+                .to(this.destination)
+                .transportMode(TransportMode.WALKING)
+                .execute(this);
     }
 }
