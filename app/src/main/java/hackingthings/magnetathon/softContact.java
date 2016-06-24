@@ -23,11 +23,14 @@ public class softContact extends AppCompatActivity {
 
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
         String softContactNumber = settings.getString("SoftContactNumber", null);
+        String softContactName = settings.getString("SoftContactName", null);
         String softAlertMessage = settings.getString("SoftContactMessage", null);
 
-        if (softContactNumber != null) {
+        String name = Data.getInstance().getName();
+
+        if (name != null) {
             TextView t = (TextView) findViewById(R.id.currentSoftContactText);
-            t.setText(softContactNumber);
+            t.setText(name);
         }
     }
     @Override
@@ -35,6 +38,7 @@ public class softContact extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_soft_contact, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -70,5 +74,7 @@ public class softContact extends AppCompatActivity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("SoftContactMessage", mEdit.getText().toString());
         editor.commit();
+
+        Data.getInstance().setMessage(mEdit.getText().toString());
     }
 }

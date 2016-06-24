@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.telephony.SmsManager;
 
+import hackingthings.magnetathon.Data;
 import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 
 /**
@@ -23,17 +24,17 @@ public class Alerter {
 
     public boolean sendSoftAlert() throws SoftAlertInformationMissingException {
 
-        String softContactNumber = settings.getString("SoftContactNumber", null);
-        String softAlertMessage = settings.getString("SoftContactMessage", null);
+        String message = Data.getInstance().getMessage();
+        String number = Data.getInstance().getNumber();
 
-        if (softContactNumber == null || softAlertMessage == null) {
+        if (number == null || message == null) {
 
-            throw new SoftAlertInformationMissingException("Contact Number or Message is missing. Contact Number: " + softContactNumber + ", Message: " + softAlertMessage);
+            throw new SoftAlertInformationMissingException("Contact Number or Message is missing. Contact Number: " + number + ", Message: " + message);
         }
 
         try {
 
-            sms.sendTextMessage(softContactNumber, null, softAlertMessage, null, null);
+            sms.sendTextMessage(number, null, message, null, null);
             return true;
 
         } catch (Exception e) { //send failed

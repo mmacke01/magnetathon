@@ -1,6 +1,9 @@
 package hackingthings.magnetathon;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -40,6 +43,7 @@ public class Contacts extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
+        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
 
         selectUsers = new ArrayList<SelectUser>();
         resolver = this.getContentResolver();
@@ -130,6 +134,19 @@ public class Contacts extends AppCompatActivity
                     Log.e("search", "here---------------- listener");
 
                     SelectUser data = selectUsers.get(i);
+                    System.out.println(data.getName());
+                    SharedPreferences settings = getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("SoftContactNumber", data.getPhone());
+                    editor.putString("SoftContactName", data.getName());
+                    editor.commit();
+
+                    Data.getInstance().setName(data.getName());
+                    Data.getInstance().setNumber(data.getPhone());
+
+                    Intent intent = new Intent(Contacts.this, softContact.class);
+                    startActivity(intent);
+
                 }
             });
 

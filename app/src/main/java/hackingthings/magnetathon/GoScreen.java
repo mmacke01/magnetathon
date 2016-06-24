@@ -3,6 +3,7 @@ package hackingthings.magnetathon;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import hackingthings.magnetathon.alerts.Alerter;
+import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 
 public class GoScreen extends AppCompatActivity {
 
@@ -159,9 +161,14 @@ public class GoScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 if(counter<7){
+                    String data = Data.getInstance().getMessage();
                     TextView t = (TextView) findViewById(R.id.alertMessage);
-                    t.setText("Soft Contact will now be alerted");
-                    alert.sendHardAlert("soft alert");
+                    t.setText("Soft Alert has been sent");
+                    try {
+                        alert.sendSoftAlert();
+                    } catch (SoftAlertInformationMissingException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, 5000);
