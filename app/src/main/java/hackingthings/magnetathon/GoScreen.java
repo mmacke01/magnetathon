@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
-public class HomeScreen extends AppCompatActivity {
+import java.sql.Time;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class GoScreen extends AppCompatActivity {
+
+    public int counter = 0;
+    public Queue<Date> times = new LinkedList<Date>();
 
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -23,8 +33,14 @@ public class HomeScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        for(int i  = 0; i < 7; i++)
+        {
+            Date start = new Date(0000000000000);
+            times.add(start);
+        }
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_go_screen);
 
         try {
             if (googleMap == null) {
@@ -43,33 +59,18 @@ public class HomeScreen extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home_screen, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (item.getItemId()){
-            case R.id.action_soft_contact:
-                Intent intent = new Intent(this,softContact.class);
-                startActivity(intent);
-                return true;
-            case R.id.action_faq:
-                Intent intentF = new Intent(this,FAQ.class);
-                startActivity(intentF);
-                return true;
-            default:
-                return false;
-        }
-    }
-    public void goClick(View view){
-        Intent intent = new Intent(this,GoScreen.class);
+    public void homeClick(View view){
+        Intent intent = new Intent(this,HomeScreen.class);
         startActivity(intent);
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)||(keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+
+            counter++;
+
+            TextView t = (TextView) findViewById(R.id.timeRemainingText);
+            t.setText("Hi I changed!");
+        }
+        return true;
     }
 }

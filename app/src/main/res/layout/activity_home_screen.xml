@@ -22,5 +22,6 @@
         android:id="@+id/goButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp"
+        android:onClick="goClick"/>
 </RelativeLayout>
