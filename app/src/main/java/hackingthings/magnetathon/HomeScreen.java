@@ -174,7 +174,9 @@ public class HomeScreen extends AppCompatActivity implements OnMapReadyCallback,
             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
             googleMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.RED));
 
-            // direction.getRouteList().get(0).getLegList().get(0)
+            String temp = direction.getRouteList().get(0).getLegList().get(0).getDuration().getValue();
+            System.out.print(temp);
+            Data.getInstance().setTime(temp);
         }
     }
 

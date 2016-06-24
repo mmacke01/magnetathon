@@ -6,6 +6,10 @@ import com.google.android.gms.common.data.DataHolder;
  * Created by Bailey on 6/24/2016.
  */
 public class Data {
+    private String Time;
+    public String getTime() {return Time;}
+    public void setTime(String mess) {Time = mess;}
+
     private String SoftContactMessage;
     public String getMessage() {return SoftContactMessage;}
     public void setMessage(String mess) {SoftContactMessage = mess;}

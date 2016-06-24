@@ -28,7 +28,7 @@
         android:id="@+id/timeRemainingText"
         android:textSize="40dp"
         android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/timeInput" />
 
     <Button
         android:layout_width="wrap_content"
@@ -80,4 +80,15 @@
         android:layout_alignTop="@+id/timeInput"
         android:onClick="addTimeClick"
         android:layout_alignEnd="@+id/textView10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/minutesText"
+        android:textSize="40dp"
+        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/textView13" />
+
 </RelativeLayout>

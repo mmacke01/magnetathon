@@ -33,13 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="None Selected"
+        android:text="No Contact Entered"
         android:id="@+id/currentSoftContactText"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
         android:textSize="20sp"
-        android:textColor="@color/abc_secondary_text_material_light" />
+        android:textColor="@color/abc_secondary_text_material_light"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,5 +99,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="saveSoftContactMessage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No Message Entered"
+        android:id="@+id/softMessageText"
+        android:layout_below="@+id/currentSoftContactText"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
 
 </RelativeLayout>

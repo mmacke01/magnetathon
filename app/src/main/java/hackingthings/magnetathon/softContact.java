@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 
@@ -29,10 +30,15 @@ public class softContact extends AppCompatActivity {
         String softAlertMessage = settings.getString("SoftContactMessage", null);
 
         String name = Data.getInstance().getName();
+        String mess = Data.getInstance().getMessage();
 
         if (name != null) {
             TextView t = (TextView) findViewById(R.id.currentSoftContactText);
             t.setText(name);
+        }
+        if (mess != null) {
+            TextView t = (TextView) findViewById(R.id.softMessageText);
+            t.setText(mess);
         }
     }
     @Override
@@ -84,6 +90,20 @@ public class softContact extends AppCompatActivity {
             String content = storedData.getName() + "\n" + storedData.getNumber() + "\n" + storedData.getMessage();
             fos.write(content.getBytes());
             fos.close();
+
+            String mess = Data.getInstance().getMessage();
+            if (mess != null) {
+                TextView t = (TextView) findViewById(R.id.softMessageText);
+                t.setText(mess);
+            }
+
+            Context context = getApplicationContext();
+            CharSequence text = "Message has been saved!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

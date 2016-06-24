@@ -50,7 +50,11 @@ public class GoScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_screen);
 
-        startTimer(300000);
+        String timeSeconds = Data.getInstance().getTime();
+        System.out.println(timeSeconds);
+        long second = (long) Integer.parseInt(timeSeconds);
+        long milliseconds = second*1000;
+        startTimer(milliseconds);
     }
     public void homeClick(View view){
         Intent intent = new Intent(this,HomeScreen.class);
@@ -142,9 +146,12 @@ public class GoScreen extends AppCompatActivity {
                     TextView t = (TextView) findViewById(R.id.alertMessage);
                     try{
                         alert.sendSoftAlert();
+                        t.setText("Soft Alert has been sent");
                     } catch (SoftAlertInformationMissingException e) {
                         e.printStackTrace();
+                        t.setText("Unable to send soft alert");
                     }
+                    counter = 0;
                 }
             }
         }, 5000);
@@ -156,5 +163,6 @@ public class GoScreen extends AppCompatActivity {
         alert.sendHardAlert("hard alert");
         Button b = (Button) findViewById(R.id.homeButton);
         b.setText("I am safe");
+        counter = 0;
     }
 }
