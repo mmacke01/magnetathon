@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
 import java.util.Date;
@@ -158,6 +161,11 @@ public class GoScreen extends AppCompatActivity {
     }
     public void hardAlert(){
         final Alerter alert = new Alerter(this);
+        LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        String coord = currentLocation.getLatitude() + ", " + currentLocation.getLongitude();
+
         TextView t = (TextView) findViewById(R.id.alertMessage);
         t.setText("Emergency Mode has been entered.");
         alert.sendHardAlert("hard alert");
