@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +27,7 @@ import hackingthings.magnetathon.alerts.Alerter;
 
 public class GoScreen extends AppCompatActivity {
 
+    public int minutes = 0;
     public int counter = 0;
     public Queue<Date> times = new LinkedList<Date>();
 
@@ -43,10 +45,10 @@ public class GoScreen extends AppCompatActivity {
             Date start = new Date(0000000000000);
             times.add(start);
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_screen);
-
+        TextView time = (TextView) findViewById(R.id.timeRemainingText);
+        time.setText(Integer.toString(minutes));
         try {
             if (googleMap == null) {
                 googleMap = ((MapFragment) getFragmentManager().
@@ -63,10 +65,19 @@ public class GoScreen extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+
     }
     public void homeClick(View view){
         Intent intent = new Intent(this,HomeScreen.class);
         startActivity(intent);
+    }
+    public void addTimeClick(View view){
+        TextView time = (TextView) findViewById(R.id.timeRemainingText);
+        EditText added = (EditText) findViewById(R.id.timeInput);
+        int timeR = Integer.parseInt(time.getText().toString());
+        int timeA = Integer.parseInt(added.getText().toString());
+        minutes = timeR + timeA;
+        time.setText(Integer.toString(minutes));
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)||(keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
