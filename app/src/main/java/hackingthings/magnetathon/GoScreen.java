@@ -42,10 +42,10 @@ public class GoScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_screen);
 
+        /*
         try {
             if (googleMap == null) {
-                googleMap = ((MapFragment) getFragmentManager().
-                        findFragmentById(R.id.map)).getMap();
+                googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
                 if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                 {
@@ -58,6 +58,7 @@ public class GoScreen extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
     public void homeClick(View view){
         Intent intent = new Intent(this,HomeScreen.class);
