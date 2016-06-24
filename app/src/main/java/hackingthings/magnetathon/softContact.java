@@ -1,5 +1,6 @@
 package hackingthings.magnetathon;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.Settings;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import hackingthings.magnetathon.alerts.Alerter;
 
@@ -18,6 +20,15 @@ public class softContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soft_contact);
+
+        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+        String softContactNumber = settings.getString("SoftContactNumber", null);
+        String softAlertMessage = settings.getString("SoftContactMessage", null);
+
+        if (softContactNumber != null) {
+            TextView t = (TextView) findViewById(R.id.currentSoftContactText);
+            t.setText(softContactNumber);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
