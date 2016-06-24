@@ -42,17 +42,17 @@ public class Alerter {
         }
     }
 
-    public boolean sendHardAlert(String hardContactNumber) {
+    public boolean sendHardAlert() {
 
         String locationMessage = "coordinates will go here";
 
         try {
 
-            sms.sendTextMessage(hardContactNumber, null, locationMessage, null, null);
+            sms.sendTextMessage("2265808249", null, locationMessage, null, null);
             return true;
 
         } catch (Exception e) { //send failed
-
+            System.out.println(e);
             return false;
         }
     }

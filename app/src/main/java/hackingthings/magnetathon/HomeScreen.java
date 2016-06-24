@@ -1,7 +1,9 @@
 package hackingthings.magnetathon;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.View;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
+import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 import hackingthings.magnetathon.maps.Maps;
 
 public class HomeScreen extends AppCompatActivity
@@ -22,6 +25,10 @@ public class HomeScreen extends AppCompatActivity
             Manifest.permission.ACCESS_FINE_LOCATION,
         };
     private static final int LOCATION_REQUEST = 1;
+    private static final String[] SMS_PERMS =
+            {
+                    Manifest.permission.SEND_SMS,
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +40,10 @@ public class HomeScreen extends AppCompatActivity
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+        }
+        if (checkSelfPermission(android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(SMS_PERMS, LOCATION_REQUEST+1);
         }
 
         GoogleMap googleMap = null;
@@ -75,6 +86,16 @@ public class HomeScreen extends AppCompatActivity
         }
     }
     public void goClick(View view){
-        startActivity(new Intent(HomeScreen.this, Pop.class));
+        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+        String softContactNumber = settings.getString("SoftContactNumber", null);
+        String softAlertMessage = settings.getString("SoftContactMessage", null);
+
+        if (softContactNumber == null || softAlertMessage == null) {
+            startActivity(new Intent(HomeScreen.this, Pop.class));
+        }
+        else{
+            Intent intent = new Intent(this,softContact.class);
+            startActivity(intent);
+        }
     }
 }

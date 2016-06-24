@@ -3,6 +3,7 @@ package hackingthings.magnetathon;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import hackingthings.magnetathon.alerts.Alerter;
 
 public class GoScreen extends AppCompatActivity {
 
@@ -71,6 +74,8 @@ public class GoScreen extends AppCompatActivity {
             if(counter == 3){
                 TextView t = (TextView) findViewById(R.id.timeRemainingText);
                 t.setText("Soft Contact will now be alerted");
+                Alerter alert = new Alerter(this);
+                alert.sendHardAlert();
             }
             else if(counter == 5){
                 TextView t = (TextView) findViewById(R.id.timeRemainingText);
