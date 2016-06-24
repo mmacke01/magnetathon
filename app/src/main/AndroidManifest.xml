@@ -39,6 +39,7 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".GoScreen"></activity>
+        <activity android:name=".Pop"></activity>
     </application>
 
 </manifest>

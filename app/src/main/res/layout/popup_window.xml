@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Warning!"
+        android:id="@+id/textView11"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="You have not set up your soft contact. Are you sure you want to proceed?"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView11"
+        android:textAlignment="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:id="@+id/yesButton"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/textView11"
+        android:layout_marginEnd="47dp"
+        android:onClick="yesClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Contact"
+        android:id="@+id/setContactButton"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginStart="41dp"
+        android:onClick="contactClick"/>
+</RelativeLayout>

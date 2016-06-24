@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -67,9 +68,17 @@ public class GoScreen extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)||(keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
 
             counter++;
+            if(counter == 3){
+                TextView t = (TextView) findViewById(R.id.timeRemainingText);
+                t.setText("Soft Contact will now be alerted");
+            }
+            else if(counter == 5){
+                TextView t = (TextView) findViewById(R.id.timeRemainingText);
+                t.setText("Emergency Mode has been entered.");
+                Button b = (Button) findViewById(R.id.homeButton);
+                b.setText("I am safe");
+            }
 
-            TextView t = (TextView) findViewById(R.id.timeRemainingText);
-            t.setText("Hi I changed!");
         }
         return true;
     }
