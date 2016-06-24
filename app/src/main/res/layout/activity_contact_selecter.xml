@@ -7,17 +7,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hackingthings.magnetathon.ContactSelecter">
+    tools:context=".ContactSelecter">
 
     <fragment
-        tools:context="hackingthings.magnetathon.ContactsList"
+        tools:context=".ContactsList"
         android:id="@+id/contactListFragment"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/okButton"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
-        android:name="hackingthings.magnetathon.ContactListFragment"
         tools:layout="@layout/fragment_contact_list" />
 
     <Button

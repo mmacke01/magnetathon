@@ -8,6 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ContactSelecter" />
+        <activity android:name=".ContactsList" />
         <activity android:name=".softContact" />
         <activity android:name=".FAQ" />
         <!--
@@ -38,7 +41,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ContactSelecter"></activity>
+        <activity android:name=".Contacts" />
+        <activity android:name=".ContactsView"></activity>
     </application>
 
 </manifest>
