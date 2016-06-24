@@ -47,11 +47,6 @@ public class GoScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        for(int i  = 0; i < 7; i++)
-        {
-            Date start = new Date(0000000000000);
-            times.add(start);
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_screen);
 
@@ -163,8 +158,7 @@ public class GoScreen extends AppCompatActivity {
                 if(counter<7){
                     String data = Data.getInstance().getMessage();
                     TextView t = (TextView) findViewById(R.id.alertMessage);
-                    t.setText("Soft Alert has been sent");
-                    try {
+                    try{
                         alert.sendSoftAlert();
                     } catch (SoftAlertInformationMissingException e) {
                         e.printStackTrace();

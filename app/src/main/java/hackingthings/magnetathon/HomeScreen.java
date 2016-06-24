@@ -102,15 +102,14 @@ public class HomeScreen extends AppCompatActivity
         }
     }
     public void goClick(View view){
-        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-        String softContactNumber = settings.getString("SoftContactNumber", null);
-        String softAlertMessage = settings.getString("SoftContactMessage", null);
+        String number = Data.getInstance().getNumber();
+        String mess = Data.getInstance().getMessage();
 
-        if (softContactNumber == null || softAlertMessage == null) {
+        if (number == null || mess == null) {
             startActivity(new Intent(HomeScreen.this, Pop.class));
         }
         else{
-            Intent intent = new Intent(this,softContact.class);
+            Intent intent = new Intent(this,GoScreen.class);
             startActivity(intent);
         }
     }
