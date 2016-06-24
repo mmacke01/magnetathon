@@ -100,7 +100,7 @@ public class GoScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 if(counter<7){
-                    TextView t = (TextView) findViewById(R.id.timeRemainingText);
+                    TextView t = (TextView) findViewById(R.id.alertMessage);
                     t.setText("Soft Contact will now be alerted");
                     alert.sendHardAlert("soft alert");
                 }
@@ -109,7 +109,7 @@ public class GoScreen extends AppCompatActivity {
     }
     public void hardAlert(){
         final Alerter alert = new Alerter(this);
-        TextView t = (TextView) findViewById(R.id.timeRemainingText);
+        TextView t = (TextView) findViewById(R.id.alertMessage);
         t.setText("Emergency Mode has been entered.");
         alert.sendHardAlert("hard alert");
         Button b = (Button) findViewById(R.id.homeButton);

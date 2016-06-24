@@ -12,23 +12,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="You are on your way!"
-        android:id="@+id/textView9"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time Remaining"
         android:id="@+id/textView10"
-        android:layout_marginTop="44dp"
         android:textColor="@color/background_floating_material_dark"
-        android:layout_below="@+id/textView9"
-        android:layout_centerHorizontal="true"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,17 +28,55 @@
         android:id="@+id/timeRemainingText"
         android:textSize="40dp"
         android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="I&apos;m Home!"
         android:id="@+id/homeButton"
-        android:layout_marginTop="104dp"
-        android:layout_below="@+id/timeRemainingText"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:onClick="homeClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/alertMessage"
+        android:layout_above="@+id/homeButton"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:onClick="homeClick"/>
+        android:layout_marginBottom="30dp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:width="50dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/homeButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/textView13"
+        android:textSize="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Time"
+        android:id="@+id/addButton"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignEnd="@+id/textView10" />
 </RelativeLayout>
