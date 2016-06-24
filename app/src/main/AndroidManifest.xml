@@ -25,8 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ContactSelecter" />
-        <activity android:name=".ContactsList" />
         <activity android:name=".softContact" />
         <activity android:name=".FAQ" />
         <!--
