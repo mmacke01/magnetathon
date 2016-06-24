@@ -1,34 +1,49 @@
 package hackingthings.magnetathon;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
 import hackingthings.magnetathon.alerts.exceptions.SoftAlertInformationMissingException;
 import hackingthings.magnetathon.maps.Maps;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeScreen extends AppCompatActivity
 {
-    private static Maps _maps;
-    private static final String[] LOCATION_PERMS =
-        {
+    private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
-        };
-    private static final int LOCATION_REQUEST = 1;
-    private static final String[] SMS_PERMS =
-            {
-                    Manifest.permission.SEND_SMS,
-            };
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+    private static final String[] CONTACTS_PERMS = {
+            Manifest.permission.READ_CONTACTS
+    };
+    private static final int INITIAL_REQUEST=333;
+    private static final int REQUEST =INITIAL_REQUEST+3;
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,26 +51,27 @@ public class HomeScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Check if we have proper permissions, if not request them
-        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
-        }
-        if (checkSelfPermission(android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(SMS_PERMS, LOCATION_REQUEST+1);
-        }
-
-        GoogleMap googleMap = null;
         try {
-                googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            if (googleMap == null) {
+                googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                        checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(LOCATION_PERMS, REQUEST);
+                }
+
+                googleMap.setMyLocationEnabled(true);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Map object that handles location requests and time estimates
-        _maps = new Maps(googleMap);
+        if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(CONTACTS_PERMS, REQUEST + 1);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

@@ -57,7 +57,7 @@ public class softContact extends AppCompatActivity {
     }
 
     public void contactsClick(View view){
-        Intent intent = new Intent(this,ContactsList.class);
+        Intent intent = new Intent(this, Contacts.class);
         startActivity(intent);
     }
 
